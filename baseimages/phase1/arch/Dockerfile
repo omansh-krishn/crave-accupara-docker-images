@@ -47,8 +47,6 @@ RUN set -x \
     iputils \
     inetutils \
     xmlstarlet \
-# Install paru
- && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si --noconfirm && cd .. && rm -rf paru \
 # Newest versions of openssh-server don't seem to create all the host keys
  && sudo /usr/bin/ssh-keygen -A \
 # Install the latest version of repo, as described in https://gerrit.googlesource.com/git-repo
@@ -80,7 +78,8 @@ ENV HOME=/home/admin \
     LANG=en_US.utf8
 WORKDIR /home/admin
 CMD /bin/bash
-
+# Install paru
+RUN git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si --noconfirm && cd .. && rm -rf paru
 RUN set -x \
 # bashrc, ssh directory, completions, etc.
  && sudo chown -R admin:admin /home/admin \
